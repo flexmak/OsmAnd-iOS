@@ -56,6 +56,8 @@
 
 #include <GeographicLib/GeoCoords.hpp>
 
+#include <QElapsedTimer>
+
 #define OLC_RECALC_DISTANCE_THRESHOLD 100000 // 100 km
 
 #define STD_POI_FILTER_PREFIX  @"std_"
@@ -757,6 +759,9 @@
         else
             searchCriteria->bbox31 = bbox31;
 
+        QElapsedTimer timer;
+        timer.start();
+
         search->performSearch(*searchCriteria,
                               [self, &limit, &phrase, &lang, transliterate, &nm, &currentResId, &resultMatcher, &ids]
                               (const OsmAnd::ISearch::Criteria& criteria, const OsmAnd::ISearch::IResultEntry& resultEntry)
@@ -816,6 +821,8 @@
                                   return false;
                               },
                               ctrl);
+
+        LogPrintf(OsmAnd::LogSeverityLevel::Warning, "XXX search-timer (%d ms) [%s]", timer.elapsed(), [resId UTF8String]);
 
         if (![resultMatcher isCancelled])
             [resultMatcher apiSearchRegionFinished:self resourceId:resId phrase:phrase];
