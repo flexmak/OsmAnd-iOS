@@ -822,8 +822,7 @@
                               },
                               ctrl);
 
-//        LogPrintf(OsmAnd::LogSeverityLevel::Warning, "XXX search-timer (%d ms) [%s]", timer.elapsed(), [resId UTF8String]);
-		NSLog(@"XXX nslog search-timer (%d ms) [%@]", timer.elapsed(), resId);
+		NSLog(@"XXX search '%@' (%d ms) [%@]", [phrase toString], timer.elapsed(), resId);
 
         if (![resultMatcher isCancelled])
             [resultMatcher apiSearchRegionFinished:self resourceId:resId phrase:phrase];
