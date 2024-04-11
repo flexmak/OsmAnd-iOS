@@ -755,8 +755,7 @@
             continue;
         searchCriteria->localResources = {r};
         if ([resId containsString:@"basemap"])
-//            searchCriteria->bbox31 = nullptr;
-			searchCriteria->bbox31 = bbox31;
+            searchCriteria->bbox31 = nullptr;
         else
             searchCriteria->bbox31 = bbox31;
 
