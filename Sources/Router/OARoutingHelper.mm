@@ -697,9 +697,15 @@ static BOOL _isDeviatedFromRoute = false;
             
             // 2. Analyze if we need to recalculate route
             // >100m off current route (sideways) or parameter (for Straight line)
-            if (currentRoute > 0 && allowableDeviation > 0)
+            if (/*currentRoute > 0 && */allowableDeviation > 0)
             {
-                distOrth = [OAMapUtils getOrthogonalDistance:currentLocation fromLocation:routeNodes[currentRoute - 1] toLocation:routeNodes[currentRoute]];
+				dist = [currentLocation distanceFromLocation:routeNodes[currentRoute]];
+				if (currentRoute > 0) {
+					distOrth = [OAMapUtils getOrthogonalDistance:currentLocation fromLocation:routeNodes[currentRoute - 1] toLocation:routeNodes[currentRoute]];
+				}
+				else {
+					distOrth = [currentLocation distanceFromLocation:routeNodes[currentRoute]];
+				}
                 if (distOrth > allowableDeviation)
                 {
                     NSLog(@"Recalculate route, because correlation  : %f", distOrth);
